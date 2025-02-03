@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Knowledge Group Projects Platform</title>
+    <link rel="stylesheet" href="{% static 'style/login.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div class="logo">
+                <img src="https://projects.dkv.global/static/media/main-logo-svg.8508b8a2b5c46072d92d5a7a37e88eef.svg"
+                    alt="Deep Knowledge Group">
+            </div>
+            <div class="graphic">
+                <img src="https://projects.dkv.global/static/media/main_img.754a7d52b81ecd4b052d.png" alt="Graphic">
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="login-box">
+                <div class="form-header">
+                    <h2>Log in</h2>
+                    <p>Welcome back! Please enter your details.</p>
+                </div>
+                <form
+                    action="{% url 'login' %}?next={{ request.GET.next|urlencode }}{% if request.GET.entry %}&entry={{ request.GET.entry }}{% endif %}"
+                    method="post">
+                    {% csrf_token %}
+                    <div class="errorlist">{{ form.non_field_errors }}</div>
+                    <div class="input-container">
+                        <label for="email">Username</label>
+                        {{ form.username }}
+                    </div>
+
+                    <div class="input-container">
+                        <label for="password">Password</label>
+                        {{ form.password }}
+                    </div>
+
+                    <div class="input-container">
+                        <button type="submit">
+                            Log in
+                        </button>
+                        <a class="google-login" href="{% url 'auth0-login' %}?next={{ request.GET.next|urlencode }}{% if request.GET.entry %}&entry={{ request.GET.entry }}{% endif %}">
+                        Log in with Google
+                    </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
